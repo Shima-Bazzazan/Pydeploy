@@ -15,7 +15,7 @@ This program retrieves the version, license, copyright details, author informati
 You can use the GitHub API to display the number of your followers and the accounts you are following.
 
 # How to run
-
+Execute this command in terminal:
 
 ```
 python main.py --image-plant {text create image plants}
