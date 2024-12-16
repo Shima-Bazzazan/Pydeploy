@@ -1,9 +1,9 @@
-import os
+import io
 import cv2
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, HttpUrl
 from typing import List, Optional
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
@@ -27,7 +27,6 @@ class Character(BaseModel):
     father: Optional[ParentInfo] = None
     mother: Optional[ParentInfo] = None
     did_you_know: Optional[List[DidYouKnow]] = None
-    image_url: Optional[HttpUrl] = None 
 
 class Book(BaseModel):
     id: int
@@ -57,7 +56,6 @@ characters = [
         "did_you_know": [
             {"fact": "Harry was the only known wizard to survive the Killing Curse as a baby, making him famous even before he arrived at Hogwarts."},
         ],
-        "image_url": "images/Harry.jpg"
     },
     {
         "id": 2,
@@ -70,7 +68,6 @@ characters = [
         "did_you_know": [
             {"fact": "Hermione was Muggle-born and outperformed most pure-bloods at Hogwarts. She played a critical role in the fight against Lord Voldemort."},
         ],
-        "image_url": "images/Hermione.jpg"
     },
     {
         "id": 3,
@@ -83,7 +80,6 @@ characters = [
         "did_you_know": [
             {"fact": "Ron, coming from a loving but modest family, provided Harry with emotional support and friendship crucial for their journey."},
         ],
-        "image_url": "images/Ronald.jpg"
     },
     {
         "id": 4,
@@ -96,7 +92,6 @@ characters = [
         "did_you_know": [
             {"fact": "Dumbledore was the only wizard Voldemort truly feared. His strategic planning was key in Voldemort's downfall."},
         ],
-        "image_url": "images/Albus_Dumbledore.jpg"
     },
     {
         "id": 5,
@@ -109,7 +104,6 @@ characters = [
         "did_you_know": [
             {"fact": "Snape's love for Lily Potter influenced his actions. He served as a double agent, crucial in Voldemort's defeat."},
         ],
-        "image_url": "images/Severus_Snape.jpg"
     },
      {
         "id": 6,
@@ -122,7 +116,6 @@ characters = [
         "did_you_know": [
             {"fact": "Voldemort created multiple Horcruxes to evade death. His obsession with blood purity defined his terror."},
         ],
-        "image_url": "images/Lord_Voldemort.jpg"
     },
     {
         "id": 7,
@@ -135,7 +128,6 @@ characters = [
         "did_you_know": [
             {"fact": "Neville destroyed one of Voldemort's Horcruxes. His journey shows how perseverance can bloom into true bravery."},
         ],
-        "image_url": "images/Neville.jpg"
     },
     {
         "id": 8,
@@ -148,7 +140,6 @@ characters = [
         "did_you_know": [
             {"fact": "Despite his early cruelty, Draco showed doubt in serving Voldemort. He never fully embraced evil as many feared."},
         ],
-        "image_url": "images/Draco.jpg"
     },
 ]
 
@@ -198,6 +189,10 @@ books = [
     },
 ]
 
+@app.get("/")
+def root():
+    return "Welcome To Harry Potter API"
+
 @app.get("/characters", response_model=List[Character])
 def get_characters():
     return characters
@@ -209,12 +204,52 @@ def get_character(character_id: int):
             return character
     raise HTTPException(status_code=404, detail="Personality not found!")
 
-@app.get("/characters/{character_id}/image")
-def get_character_image(character_id: int):
-    character = next((char for char in characters if char["id"] == character_id), None)
+@app.get("/{character_id}/image")                
+def image(character_id):
+    if character_id == "1":
+        image = cv2.imread("images/Harry.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
     
-    if character is None or character["image_url"] is None:
-        raise HTTPException(status_code=404, detail="Image not found for the specified character!")
+    elif character_id == "2":
+        image = cv2.imread("images/Hermione.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "3":
+        image = cv2.imread("images/Ronald.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "4":
+        image = cv2.imread("images/Albus_Dumbledore.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "5":
+        image = cv2.imread("images/Severus_Snape.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "6":
+        image = cv2.imread("images/Lord_Voldemort.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "7":
+        image = cv2.imread("images/Neville.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    elif character_id == "8":
+        image = cv2.imread("images/Draco.jpg")
+        _, encoded_image = cv2.imencode(".png", image)
+        return StreamingResponse(io.BytesIO(encoded_image.tobytes()), media_type = "image/jpg")
+    
+    else:
+        raise HTTPException(status_code = status.HTTP_400_BAD_REQUEST,
+                            detail = "Just enter the ID number of the desired character.")
+
 
 @app.get("/books", response_model=List[Book])
 def get_books():
