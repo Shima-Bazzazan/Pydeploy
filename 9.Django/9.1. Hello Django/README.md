@@ -53,6 +53,6 @@ Visit the app in your browser at:
 http://127.0.0.1:8000/polls
 ```
 
-### 🛠️ Helpful Links
+### 🛠️ Helpful Link
 
 Official Django Documentation: [Django Documentation](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
