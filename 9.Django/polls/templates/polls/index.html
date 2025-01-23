@@ -1,0 +1,26 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+<body style="background-image: url('{% static "polls/images/spammy_questions.png" %}'); 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;">
+    <div class="questions-container">
+    {% if latest_question_list %}
+    <ul class="question-list">
+        {% for question in latest_question_list %}
+        <li><a class="question-item" href="{% url 'polls:detail' question.id %}">
+            {{ question.question_text }}   
+        </a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</div>
+</body>
