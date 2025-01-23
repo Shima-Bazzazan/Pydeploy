@@ -1,0 +1,119 @@
+
+body {
+    background: rgb(255, 255, 255) url("images/spammy_questions.png") no-repeat;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    font-family: 'IRANSans', Arial, sans-serif;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+
+
+.questions-container {
+    background-color: rgba(99, 98, 98, 0.603);
+    padding: 20px 40px;
+    border-radius: 50px;
+    width: 42%;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.question-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.question-item {
+    display: block;
+    padding: 10px 15px;
+    text-align: right;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: rgba(228, 223, 223, 0.753);
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 17px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.question-item:hover {
+    background-color: rgba(165, 214, 214, 0.877);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(20, 20, 20, 0.959);
+}
+
+body.question-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: "IRANSans", Arial, sans-serif;
+    background-size: 47% auto;;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #000000;
+}
+
+
+.question-container {
+    background-color: rgba(170, 169, 169, 0.678);
+    border-radius: 50px;
+    padding: 57px;
+    max-width: 400px;
+    width: 40%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+
+.question-title {
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.choices-list {
+    list-style: none;
+    padding: 0;
+}
+
+.choice-item {
+    margin: 10px 0;
+    padding: 15px;
+    border: 2px solid #ffffff1e;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.choice-item:hover {
+    background-color: #6bb6b6b6;
+    color: hsla(0, 0%, 0%, 0.992);
+    transform: scale(1.05);
+}
+
+.vote-button {
+    background-color: #ffffffd0;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s;
+}
+
+.vote-button:hover {
+    background-color: #6bb6b6b6;
+}

@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ question.question_text }}</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body class="question-page" style="background-image: url('{% static "polls/images/question_" %}{{ question.id }}.png');">
+
+    <div class="question-container">
+        <h1 class="question-title">{{ question.question_text }}</h1>
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+            {% csrf_token %}
+            <ul class="choices-list">
+                {% for choice in question.choice_set.all %}
+                <li class="choice-item">
+                    <label>
+                        <input type="radio" name="choice" value="{{ choice.id }}">
+                        {{ choice.choice_text }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="vote-button" type="submit">ارسال</button>
+        </form>
+    </div>
+    
+</body>
+
+
+</html>
