@@ -34,6 +34,8 @@
 
 This project is based on Django's official documentation and tutorial. For more information, visit:
 
+- [Spammy-Qestions](https://spammy-questions.liara.run/)
+
 - [Django Tutorial](https://docs.djangoproject.com/en/5.1/intro/tutorial01/)
 
 - [Django Documentation](https://docs.djangoproject.com/en/5.1/)
