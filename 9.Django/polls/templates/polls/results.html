@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <style>
+        body {
+            background-image: url("{% static 'polls/images/vote.png' %}");   
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>{{ question.question_text }}</h1>
+        <ul class="result-list">
+            {% for choice in question.choice_set.all %}
+            <li>
+                <span class="choice-text">{{ choice.choice_text }}</span> --
+                <span class="vote-count">{{ choice.votes }}</span>
+                <span class="vote-text">vote{{ choice.votes|pluralize }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'polls:detail' question.id %}" class="btn">دوباره رأی بده!</a>
+    </div>
+</body>
+</html>
